@@ -2,39 +2,36 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const autorSchema = new mongoose.Schema({
-    nombre: String,
+    name: String,
     email: String
 });
 
-const cursoSchema = new mongoose.Schema({
-    titulo: {
+const courseSchema = new mongoose.Schema({
+    title: {
         type: String,
         required: true
     },
-    // autor: {
-    //     type: Schema.Types.ObjectId, ref: 'Usuario'
-    // },
-    autor: autorSchema,
-    descripcion: {
+    author: autorSchema,
+    description: {
         type: String,
         required: true
     },
-    estado: {
+    status: {
         type: Boolean,
         required: true,
         default: true
     },
-    imagen: {
+    image: {
         type: String,
         required: false
     },
-    alumnos: {
+    students: {
         type: Number,
         default: 0
     },
-    calificacion: {
+    mark: {
         type: Number
     }
 });
 
-module.exports = mongoose.model('Curso', cursoSchema);
+module.exports = mongoose.model('Course', courseSchema);

@@ -1,14 +1,14 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const routes = express.Router();
-const Usuario = require('../models/usuario_model');
+const User = require('../models/user_model');
 const Joi = require('joi');
 const verifyToken = require('../middlewares/auth');
 
 /* Joi validation */
 
 const schema = Joi.object({
-    nombre: Joi.string()
+    name: Joi.string()
         .min(3)
         .max(50)
         .required(),
@@ -23,11 +23,11 @@ const schema = Joi.object({
 /* End Joi */
 
 routes.get('/', verifyToken, (req, res) => {
-    let resultado = listarUsuariosActivos();
+    let result = listActiveUsers();
 
-    resultado
-        .then(usuarios => {
-            return res.json(usuarios);
+    result
+        .then(users => {
+            return res.json(users);
         })
         .catch(err => {
             return res.status(400).json({
@@ -39,7 +39,7 @@ routes.get('/', verifyToken, (req, res) => {
 routes.post('/', (req, res) => {
     let body = req.body;
 
-    Usuario.findOne({ email: body.email }, (err, user) => {
+    User.findOne({ email: body.email }, (err, user) => {
         if(err) {
             return res.status(500).json({ error: 'Internal Server Error' });
         }
@@ -50,18 +50,18 @@ routes.post('/', (req, res) => {
     });
 
     const {error, value} = schema.validate({
-        nombre: body.nombre,
+        name: body.name,
         email: body.email
     });
 
     if(!error) {
-        let resultado = crearUsuario(body);
+        let result = createUser(body);
 
-        resultado
-            .then(usuario => {
+        result
+            .then(user => {
                 res.json({
-                    nombre: usuario.nombre,
-                    email: usuario.email
+                    name: user.name,
+                    email: user.email
                 });
             })
             .catch(err => {
@@ -77,17 +77,17 @@ routes.post('/', (req, res) => {
 routes.put('/:email', verifyToken, (req, res) => {
     
     const {error, value} = schema.validate({
-        nombre: req.body.nombre
+        name: req.body.name
     });
 
     if(!error) {
-        let resultado = actualizarUsuario(req.params.email, req.body);
+        let result = updateUser(req.params.email, req.body);
 
-        resultado
-            .then(usuario => {
+        result
+            .then(user => {
                 res.json({
-                    nombre: usuario.nombre,
-                    email: usuario.email
+                    name: user.name,
+                    email: user.email
                 })
             })
             .catch(err => {
@@ -103,69 +103,68 @@ routes.put('/:email', verifyToken, (req, res) => {
 });
 
 routes.delete('/:email', verifyToken, (req, res) => {
-    let resultado = desactivarUsuario(req.params.email);
+    let result = deactivateUser(req.params.email);
 
-    resultado
-        .then(usuario => {
-            res.json({
-                nombre: usuario.nombre,
-                email: valor.email
+    result
+        .then(user => {
+            return res.json({
+                name: user.name,
+                email: user.email
             })
         })
         .catch(err => {
             res.status(400).json({
-                error: err
+                err
             })
         });
 });
 
-async function listarUsuariosActivos() {
-    let usuarios = await
-        Usuario
-            .find({ 'estado': true })
-            .select({ nombre: 1, email: 1 });
+async function listActiveUsers() {
+    let users = await
+        User
+            .find({ 'status': true })
+            .select({ name: 1, email: 1 });
 
-    return usuarios;
+    return users;
 }
 
-async function crearUsuario(body) {
+async function createUser(body) {
     
     let hashedPassword = bcrypt.hashSync(body.password, 10);
-    
-    console.log(hashedPassword);
 
-    let usuario = new Usuario({
+    let user = new User({
         email:      body.email,
-        nombre:     body.nombre,
+        name:       body.name,
         password:   hashedPassword
     });
 
-    return await usuario.save();
+    return await user.save();
 }
 
-async function actualizarUsuario(email, body) {
-    let usuario = await Usuario.findOneAndUpdate({ 'email': email}, {
+async function updateUser(email, body) {
+    let user = await User.findOneAndUpdate({ 'email': email}, {
         $set: {
-            nombre: body.nombre,
+            name: body.name,
             password: body.password
         }
     }, {
         new: true
     });
 
-    return usuario;
+    return user;
 }
 
-async function desactivarUsuario(email) {
-    let usuario = await Usuario.findOneAndUpdate({ 'email': email}, {
+async function deactivateUser(email) {
+    
+    let user = await User.findOneAndUpdate({ 'email': email }, {
         $set: {
-            estado: false
+            status: false
         }
     }, {
         new: true
     });
-
-    return usuario;
+    
+    return user;
 }
 
 module.exports = routes;

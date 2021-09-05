@@ -1,5 +1,5 @@
 {
-    "nombre": "API Rest Express - Usuarios y Cursos",
+    "name": "API Rest Express - Users y Courses",
     "configDB": {
         "host": "mongodb://localhost:27017/demo"
     },

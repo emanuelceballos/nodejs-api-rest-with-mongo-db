@@ -2,19 +2,19 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const routes = express.Router();
-const Usuario = require('../models/usuario_model');
+const User = require('../models/user_model');
 const config = require('config');
 
 routes.post('/', (req, res) => {
     
     const loginErrorMessage = 'Incorrect user or password.';
 
-    Usuario
+    User
         .findOne({ email: req.body.email })
-        .then(datos => {
-            if(datos) {
+        .then(dbData => {
+            if(dbData) {
 
-                const validPassword = bcrypt.compareSync(req.body.password, datos.password);
+                const validPassword = bcrypt.compareSync(req.body.password, dbData.password); 
                 
                 if(!validPassword) {
                     return res.status(400).json({
@@ -24,9 +24,9 @@ routes.post('/', (req, res) => {
 
                 const token = jwt.sign({
                     user: {
-                        _id: datos._id,
-                        nombre: datos.nombre,
-                        email: datos.email
+                        _id: dbData._id,
+                        name: dbData.name,
+                        email: dbData.email
                     }
                 },
                 config.get('configToken.seed'),
@@ -36,9 +36,9 @@ routes.post('/', (req, res) => {
                 
                 return res.json({
                     user: {
-                        _id: datos._id,
-                        nombre: datos.nombre,
-                        email: datos.email
+                        _id: dbData._id,
+                        name: dbData.name,
+                        email: dbData.email
                     },
                     token
                 });
