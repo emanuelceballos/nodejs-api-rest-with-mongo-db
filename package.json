@@ -1,7 +1,7 @@
 {
-  "name": "07-apirest-mongodb",
+  "name": "node-js-api-rest-with-mongo-db",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node JS API Rest with Mongo DB",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

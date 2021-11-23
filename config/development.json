@@ -1,7 +1,7 @@
 {
     "name": "API Rest Express - Users y Courses",
     "configDB": {
-        "host": "mongodb://localhost:27017/demo"
+        "host": "mongodb://db:27017/demo"
     },
     "configToken": {
         "seed": "secret",

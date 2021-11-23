@@ -1,9 +1,11 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const users = require('./routes/users');
 const courses = require('./routes/courses');
 const auth = require('./routes/auth');
 const config = require('config');
+
+/* Mongo DB Configuration */
+const mongoose = require('mongoose');
 
 mongoose.connect(config.get('configDB.host'), {
         useNewUrlParser: true,
@@ -14,6 +16,8 @@ mongoose.connect(config.get('configDB.host'), {
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
+
+/* END Mongo DB */
 
 const app = express();
 app.use(express.json());
