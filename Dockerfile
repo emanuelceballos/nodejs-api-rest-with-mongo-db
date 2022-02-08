@@ -1,8 +1,8 @@
-FROM node:8.17.0-slim
+FROM node:14.18-slim
 
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
-COPY . .
+COPY ./src .
 EXPOSE 3000
-CMD [ "node", "server.js" ]
+CMD [ "node", "swagger.js" ]

@@ -1,7 +1,9 @@
 {
-    "name": "API Rest Express - Users y Courses",
+    "name": "API For The Some-Company-Project",
     "configDB": {
-
+        "mongo": {
+            "host": "mongodb://[user]:[password]@mongodb0.example.com:27017/db_name"
+        }
     },
     "configToken": {
         "seed": "secret",

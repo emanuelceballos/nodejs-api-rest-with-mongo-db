@@ -1,0 +1,23 @@
+{
+    "entryFile": "src/server.ts",
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "controllerPathGlobs": [
+        "src/**/*Controller.ts"
+    ],
+    "spec": {
+        "outputDirectory": "dist",
+        "specVersion": 3,
+        "securityDefinitions": {
+            "api_key": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "routes": {
+        "routesDir": "dist",
+        "authenticationModule": "./src/api/middlewares/authentication.ts",
+        "iocModule": "./src/ioc"
+    }
+}
