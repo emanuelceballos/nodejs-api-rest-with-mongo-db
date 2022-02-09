@@ -1,5 +1,5 @@
 import express, { Application, Request, Response } from 'express';
-import db from './repository/db/dbConnection';
+import db from './repository/db/mongooseDbConnection';
 import bodyParser from "body-parser";
 import { RegisterRoutes } from "../dist/routes";
 import customErrorsResponse from './api/customErrors/customErrorsResponse';

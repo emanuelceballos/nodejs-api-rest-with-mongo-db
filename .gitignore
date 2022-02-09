@@ -105,3 +105,6 @@ dist
 
 # Swagger auto-generated
 swagger_output.json
+
+# Local uploads
+uploads

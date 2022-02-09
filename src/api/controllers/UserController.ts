@@ -25,10 +25,10 @@ import { inject } from "inversify";
 import { provideSingleton } from "../../util/provideSingleton";
 import { logger } from "../../util/asyncLocalStorageLog";
 
-@provideSingleton(UsersController)
-@Route("api/v1/users")
-@Tags("users")
-export class UsersController extends Controller {
+@provideSingleton(UserController)
+@Route("api/v1/user")
+@Tags("user")
+export class UserController extends Controller {
 
     private readonly userService: IUserService;
 

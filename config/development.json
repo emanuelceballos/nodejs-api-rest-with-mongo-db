@@ -8,5 +8,13 @@
     "configToken": {
         "seed": "secret",
         "expiration": "24h"
+    },
+    "aws": {
+        "accessKey": "",
+        "secretKey": "",
+        "region": "",
+        "s3": {
+            "bucket": ""
+        }
     }
 }

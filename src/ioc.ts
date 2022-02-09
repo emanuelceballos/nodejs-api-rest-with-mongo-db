@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { Container, decorate, injectable } from "inversify";
-import { IAuthService, IUserService } from "./core/serviceInterfaces";
-import { AuthService, UserService } from './services';
+import { IAuthService, IFileService, IUserService } from "./core/serviceInterfaces";
+import { AuthService, FileService, UserService } from './services';
 import { Controller } from "tsoa";
 import { buildProviderModule } from "inversify-binding-decorators";
 import { IUserRepository } from "./core/repositoryInterfaces/IUserRepository";
@@ -21,6 +21,9 @@ iocContainer
 iocContainer
     .bind<IAuthService>(Symbol.for("IAuthService"))
     .to(AuthService);
+iocContainer
+    .bind<IFileService>(Symbol.for("IFileService"))
+    .to(FileService);
 iocContainer
     .bind<IUserRepository>(Symbol.for("IUserRepository"))
     .to(UserRepository);

@@ -52,6 +52,9 @@ For Swagger documentation open: http://localhost:3000/swagger/
     - Request id tracking to group calls all the way down the promise chain
 - MongoDB connection ready
 - Docker support
+- File upload support:
+    - Upload to local disk
+    - Upload to S3
 
 ## What's coming next?
 
