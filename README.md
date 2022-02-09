@@ -54,7 +54,7 @@ For Swagger documentation open: http://localhost:3000/swagger/
 - Docker support
 - File upload support:
     - Upload to local disk
-    - Upload to S3
+    - Upload to AWS S3
 
 ## What's coming next?
 
