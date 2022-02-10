@@ -36,6 +36,9 @@ export class FileController extends Controller {
     @SuccessResponse("200", "OK")
     @Response<ErrorResponse>(500, 'Internal server error.')
     public async uploadSingle(
+
+        // Swagger does not detect this signature by default.
+        // You will need to manually add it to the ./tsoa.json in the spec object.
         @Request() request: express.Request
     ): Promise<void> {
 

@@ -13,11 +13,62 @@
                 "name": "Authorization",
                 "in": "header"
             }
+        },
+        "specMerging": "recursive",
+        "spec": {
+            "paths": {
+                "/api/v1/file/localdisk": {
+                    "post": {
+                        "parameters": [],
+                        "requestBody": {
+                            "required": true,
+                            "content": {
+                                "multipart/form-data": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "file": {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        },
+                                        "required": [
+                                            "file"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "/api/v1/file/s3": {
+                    "post": {
+                        "requestBody": {
+                            "content": {
+                                "multipart/form-data": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "file": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string",
+                                                    "format": "binary"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "routes": {
         "routesDir": "dist",
-        "authenticationModule": "./src/api/middlewares/authentication.ts",
+        "authenticationModule": "./src/api/middlewares/authenticationMiddleware.ts",
         "iocModule": "./src/ioc"
     }
 }
